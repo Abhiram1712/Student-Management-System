@@ -51,6 +51,7 @@ input[type="submit"]:hover{
 }
 
 p a{
+    /* width: 100px; */
     background-color: lightblue;
     border: 1px solid black;
     padding: 5px 10px;
@@ -68,11 +69,18 @@ table {
 th{
     text-align: center;
     font-weight: bold;
+    background-color: rgb(169, 234, 234);
+    
 }
 td{
     text-align: center;
 }
 th,td{
     padding: 10px;
+    border: 2px solid black;
     font-size:large;
+}
+
+tr:nth-child(even){
+    background-color: rgb(169, 234, 234);
 }
