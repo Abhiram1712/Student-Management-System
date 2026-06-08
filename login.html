@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script>
+        function login(){
+            event.preventDefault();
+
+            const username=document.getElementById("username").value;
+            const password=document.getElementById("password").value;
+
+            const user = JSON.parse(localStorage.getItem(`${username}`));
+
+            if(user=== null || user=== undefined){
+                alert("Invalid Credentials");
+                return;
+            }
+
+            if(user.password!==password){
+                alert("Invalid Password");
+                return;
+            }
+
+            window.location.href="dashboard.html";
+        }
+    </script>
 </head>
 <body>
     <nav>
@@ -15,7 +37,7 @@
 
     <h1>Login to Your Account</h1>
     
-    <form action="dashboard.html">
+    <form onsubmit="login()" action="dashboard.html">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required><br><br>
 

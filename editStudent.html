@@ -5,6 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Student Details</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>{
+            
+            const p=new URLSearchParams(window.location.search);
+            const rno=p.get("rollno");
+            std=(JSON.parse(localStorage.getItem("Students")) || []);
+            k=-1;
+            for(const t in  std){
+                if(std[t]['rollno']===rno){
+                    k=t;
+                    break;
+                }
+            }
+            document.getElementById("name").value=std[k]['name'];
+            document.getElementById("rollno").value=std[k]['rollno'];
+            document.getElementById("branch").value=std[k]['branch'];
+            document.getElementById("cgpa").value=std[k]['cgpa'];
+        });
+        function edit(){
+            event.preventDefault();
+            const name=document.getElementById("name").value;
+            const rollno=document.getElementById("rollno").value;
+            const branch=document.getElementById("branch").value;
+            const cgpa=document.getElementById("cgpa").value;
+            const r={
+                name:name,
+                rollno:rollno,
+                branch:branch,
+                cgpa:cgpa
+            }
+
+            std.splice(k,1,r)
+            localStorage.setItem("Students",JSON.stringify(std));
+            
+           window.location.href="viewStudent.html"
+        }
+
+    </script>
 </head>
 <body>
     <nav>
@@ -16,18 +54,18 @@
 
     <div>
         <h1>Edit Student Details</h1>
-        <form action="viewStudent.html">
+        <form onsubmit="edit()" action="viewStudent.html">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" value="Akhil" required><br><br>
+            <input type="text" id="name" name="name" required><br><br>
 
             <label for="rollno">Roll No:</label>
-            <input type="number" id="rollno" name="rollno" value="102" required><br><br>
+            <input type="number" id="rollno" name="rollno" required><br><br>
 
             <label for="branch">Branch:</label>
-            <input type="text" id="branch" name="branch" value="ECE" required><br><br>
+            <input type="text" id="branch" name="branch" required><br><br>
 
             <label for="cgpa">CGPA:</label>
-            <input type="text" id="cgpa" name="cgpa" value="9.2" required><br><br>
+            <input type="text" id="cgpa" name="cgpa" required><br><br>
 
             <input type="submit" value="Update Student">
         </form>
