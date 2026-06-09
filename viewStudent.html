@@ -26,7 +26,13 @@
         function deleteR(ssm) {
             let std = JSON.parse(localStorage.getItem("Students")) || [];
 
-            let index = std.findIndex(student => student.name === ssm);
+            let index=-1;
+            for(let a in std){
+                if(std[a]['name']==ssm){
+                    index=a;
+                    break;
+                }
+            }
 
             if (index !== -1) {
                 std.splice(index, 1);
