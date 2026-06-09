@@ -11,6 +11,14 @@
 
             const username=document.getElementById("username").value;
             const password=document.getElementById("password").value;
+            if(!(/^[a-zA-Z0-9]{8,}$/.test(username))){
+                alert("Invalid Username");
+                return;
+            }
+            if(!(/^[a-zA-Z0-9]{8,}$/.test(password))){
+                alert("Invalid Password");
+                return;
+            }
 
             const user = JSON.parse(localStorage.getItem(`${username}`));
 

@@ -18,11 +18,36 @@
                 alert("Username must be of 8 characters")
                 return;
             }
+            if(!(/^[a-zA-Z0-9]{8,}$/.test(username))){
+                alert("Username must not contain special characters");
+                return;
+            }
             
             if(password!==cpassword){
                 alert("Password and Confirm Password does not match");
                 return;
             }
+
+            if(!(/^[a-zA-Z0-9]{6,}$/.test(password))){
+                alert("Password is too weak , Go with a Strong password");
+                return;
+            }
+
+            const std=localStorage.getItem(username);
+            console.log(std);
+            if(std!==null){
+                alert("Username Already Taken");
+                return;
+            }
+
+            const x=JSON.parse(localStorage.getItem("Mails")) || [];
+            for(let c of x){
+                if(c==email){
+                    alert('Email is already associated with an account');
+                    return;
+                }
+            }
+
 
             const user = {
                 username:username,
@@ -30,6 +55,10 @@
                 password:password,
                 cpassword:cpassword
             }
+
+           
+            x.push(email);
+            localStorage.setItem("Mails",JSON.stringify(x));
 
             localStorage.setItem(`${username}`,JSON.stringify(user));
 
