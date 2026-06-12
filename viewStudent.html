@@ -6,6 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Students Page</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                let data = document.querySelector("tbody");
+                let std = (JSON.parse(localStorage.getItem("Students")) || []);
+
+                for (const k of std) {
+                    data.innerHTML += `<tr>
+                    <td>${k.name}</td>
+                    <td>${k.rollno}</td>
+                    <td>${k.branch}</td>
+                    <td>${k.cgpa}</td>
+                    <td><input type="button" onclick="window.location.href='editStudent.html?rollno=${k.rollno}'" value="Edit"></td>
+                    <td><input type="button" onclick="deleteR('${k.name}')" value="Delete"></td>
+                </tr>`;
+                }
+            });
+
+        function deleteR(ssm) {
+            let std = JSON.parse(localStorage.getItem("Students")) || [];
+
+            let index=-1;
+            for(let a in std){
+                if(std[a]['name']==ssm){
+                    index=a;
+                    break;
+                }
+            }
+
+            if (index !== -1) {
+                std.splice(index, 1);
+
+                localStorage.setItem("Students", JSON.stringify(std));
+
+                location.reload();
+            } else {
+                console.log("Student not found");
+            }
+        }
+    </script>
+
 </head>
 
 <body>
@@ -29,49 +69,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Aryan</td>
-                    <td>101</td>
-                    <td>CSE</td>
-                    <td>9.8</td>
-                    <td><a href="editStudent.html">Edit</a></td>
-                    <td><a href="deleteStudent.html">Delete</a></td>
-                </tr>
-                <tr>
-                    <td>Akhil</td>
-                    <td>102</td>
-                    <td>ECE</td>
-                    <td>9.2</td>
-                    <td><a href="editStudent.html">Edit</a></td>
-                    <td><a href="deleteStudent.html">Delete</a></td>   
-
-                </tr>
-                <tr>
-                    <td>Riya</td>
-                    <td>103</td>
-                    <td>CSE</td>
-                    <td>8.9</td>
-                    <td><a href="editStudent.html">Edit</a></td>
-                    <td><a href="deleteStudent.html">Delete</a></td>
-                </tr>
-                <tr>
-                    <td>Shiva</td>
-                    <td>104</td>
-                    <td>CSE</td>
-                    <td>9.5</td>
-                    <td><a href="editStudent.html">Edit</a></td>
-                    <td><a href="deleteStudent.html">Delete</a>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Priya</td>
-                    <td>105</td>
-                    <td>ECE</td>
-                    <td>9.0</td>
-                    <td><a href="editStudent.html">Edit</a></td>
-                    <td><a href="deleteStudent.html">Delete</a></td>
-                </tr>
             </tbody>
         </table>
     </div>

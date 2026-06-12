@@ -5,6 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Student Page</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script>
+        function addStudent(){
+            event.preventDefault();
+            const name=document.getElementById("name").value;
+            const rollno=document.getElementById("rollno").value;
+            const branch=document.getElementById("branch").value;
+            const cgpa=document.getElementById("cgpa").value;
+
+            const data={
+                name:name,
+                rollno:rollno,
+                branch:branch,
+                cgpa:cgpa
+            }
+
+            let std=JSON.parse(localStorage.getItem("Students")) || [];
+
+            std.push(data);
+
+            localStorage.setItem("Students",JSON.stringify(std));
+
+            window.location.href="viewStudent.html";
+
+        }
+    </script>
 </head>
 <body>
     <nav>
@@ -16,7 +41,7 @@
 
     <div>
         <h1>Fill the Details to add Student</h1>
-        <form action="viewStudent.html">
+        <form onsubmit="addStudent()" action="viewStudent.html">
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required><br><br>
 
