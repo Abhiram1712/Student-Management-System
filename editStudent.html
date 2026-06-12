@@ -6,14 +6,18 @@
     <title>Edit Student Details</title>
     <link rel="stylesheet" href="css/styles.css">
     <script>
-        document.addEventListener("DOMContentLoaded",()=>{
+        document.addEventListener("DOMContentLoaded",async ()=>{
             
             const p=new URLSearchParams(window.location.search);
             const rno=p.get("rollno");
-            std=(JSON.parse(localStorage.getItem("Students")) || []);
-            k=-1;
+            // std=(JSON.parse(localStorage.getItem("Students")) || []);
+            std=await fetch("http://localhost:3000/students").then(response=>response.json());
+
+            id=-1;
+            k=-1
             for(const t in  std){
                 if(std[t]['rollno']===rno){
+                    id=std[t]['id'];
                     k=t;
                     break;
                 }
@@ -23,7 +27,7 @@
             document.getElementById("branch").value=std[k]['branch'];
             document.getElementById("cgpa").value=std[k]['cgpa'];
         });
-        function edit(){
+        async function edit(){
             event.preventDefault();
             const name=document.getElementById("name").value;
             const rollno=document.getElementById("rollno").value;
@@ -36,10 +40,13 @@
                 cgpa:cgpa
             }
 
-            std.splice(k,1,r)
-            localStorage.setItem("Students",JSON.stringify(std));
+            // std.splice(k,1,r)
+            // localStorage.setItem("Students",JSON.stringify(std));
+
+            const res = await fetch(`http://localhost:3000/students/${id}`,{method:"PUT",body:JSON.stringify(r)});
+            // console.log(res);
             
-           window.location.href="viewStudent.html"
+        //    window.location.href="viewStudent.html"
         }
 
     </script>

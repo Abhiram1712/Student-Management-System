@@ -7,9 +7,11 @@
     <title>View Students Page</title>
     <link rel="stylesheet" href="css/styles.css">
     <script>
-            document.addEventListener("DOMContentLoaded", () => {
+            document.addEventListener("DOMContentLoaded", async () => {
                 let data = document.querySelector("tbody");
-                let std = (JSON.parse(localStorage.getItem("Students")) || []);
+                // let std = (JSON.parse(localStorage.getItem("Students")) || []);
+                let std = await fetch("http://localhost:3000/students").then(response=>response.json());
+                // console.log(std);
 
                 for (const k of std) {
                     data.innerHTML += `<tr>
@@ -23,23 +25,27 @@
                 }
             });
 
-        function deleteR(ssm) {
-            let std = JSON.parse(localStorage.getItem("Students")) || [];
+        async function deleteR(ssm) {
+            // let std = JSON.parse(localStorage.getItem("Students")) || [];
+
+            let std= await fetch("http://localhost:3000/students").then(response=>response.json());
 
             let index=-1;
             for(let a in std){
                 if(std[a]['name']==ssm){
-                    index=a;
+                    index=std[a]['id'];
                     break;
                 }
             }
 
             if (index !== -1) {
-                std.splice(index, 1);
+                // std.splice(index, 1);
 
-                localStorage.setItem("Students", JSON.stringify(std));
+                // localStorage.setItem("Students", JSON.stringify(std));
 
-                location.reload();
+                // location.reload();
+                const res= await fetch(`http://localhost:3000/students/${index}`,{method:"DELETE"});
+                console.log(res);
             } else {
                 console.log("Student not found");
             }

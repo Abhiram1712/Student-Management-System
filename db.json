@@ -1,5 +1,35 @@
 {
-    "users":[],
-    "students":[]
-
+  "users": [
+    {
+      "username": "cvr12345",
+      "email": "cvr12345@gmail.com",
+      "password": "cvr12345",
+      "cpassword": "cvr12345",
+      "id": "6zVgEjRm2B0"
+    }
+  ],
+  "students": [
+    {
+      "name": "Akhil",
+      "rollno": "101",
+      "branch": "CSE",
+      "cgpa": "9.5",
+      "id": "zy039XKn5ZI"
+    },
+    {
+      "name": "Abhi",
+      "rollno": "102",
+      "branch": "CSE",
+      "cgpa": "9.7",
+      "id": "s9vq9vB_QJw"
+    },
+    {
+      "name": "Shiva",
+      "rollno": "103",
+      "branch": "CSE",
+      "cgpa": "9",
+      "id": "V_a_yJcLT74"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

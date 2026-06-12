@@ -6,7 +6,7 @@
     <title>Add Student Page</title>
     <link rel="stylesheet" href="css/styles.css">
     <script>
-        function addStudent(){
+        async function addStudent(){
             event.preventDefault();
             const name=document.getElementById("name").value;
             const rollno=document.getElementById("rollno").value;
@@ -20,11 +20,17 @@
                 cgpa:cgpa
             }
 
-            let std=JSON.parse(localStorage.getItem("Students")) || [];
+            // let std=JSON.parse(localStorage.getItem("Students")) || [];
 
-            std.push(data);
+            // std.push(data);
 
-            localStorage.setItem("Students",JSON.stringify(std));
+            // localStorage.setItem("Students",JSON.stringify(std));
+
+            const res=await fetch("http://localhost:3000/students",{method:"POST",body:JSON.stringify(data)});
+            if(!res){
+                alert("An Error Occured! Try Again");
+                return;
+            }
 
             window.location.href="viewStudent.html";
 

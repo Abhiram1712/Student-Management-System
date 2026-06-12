@@ -6,7 +6,7 @@
     <title>Login Page</title>
     <link rel="stylesheet" href="css/styles.css">
     <script>
-        function login(){
+        async function login(){
             event.preventDefault();
 
             const username=document.getElementById("username").value;
@@ -20,19 +20,27 @@
                 return;
             }
 
-            const user = JSON.parse(localStorage.getItem(`${username}`));
+            // const user = JSON.parse(localStorage.getItem(`${username}`));
+            
+            const res=await fetch("http://localhost:3000/users").then(response=>response.json());
 
-            if(user=== null || user=== undefined){
-                alert("Invalid Credentials");
-                return;
+            if(res.some((ele)=>ele.username==username && ele.password==password)){
+                window.location.href="dashboard.html";
             }
 
-            if(user.password!==password){
-                alert("Invalid Password");
-                return;
-            }
 
-            window.location.href="dashboard.html";
+
+            // if(user=== null || user=== undefined){
+            //     alert("Invalid Credentials");
+            //     return;
+            // }
+
+            // if(user.password!==password){
+            //     alert("Invalid Password");
+            //     return;
+            // }
+
+            // window.location.href="dashboard.html";
         }
     </script>
 </head>

@@ -6,7 +6,7 @@
     <title>Register</title>
     <link rel="stylesheet" href="css/styles.css">
     <script>
-        function register(){
+        async function register(){
             event.preventDefault();
 
             const username=document.getElementById("username").value;
@@ -33,21 +33,28 @@
                 return;
             }
 
-            const std=localStorage.getItem(username);
+
+            // const std=localStorage.getItem(username);
+            // console.log(std);
+            // if(std!==null){
+            //     alert("Username Already Taken");
+            //     return;
+            // }
+
+            // const x=JSON.parse(localStorage.getItem("Mails")) || [];
+            // for(let c of x){
+            //     if(c==email){
+            //         alert('Email is already associated with an account');
+            //         return;
+            //     }
+            // }
+
+            const std= await fetch("http://localhost:3000/users").then(response=>response.json());
             console.log(std);
-            if(std!==null){
-                alert("Username Already Taken");
+            if(std.some((ele)=>ele.username==username || ele.email==email)){
+                alert("Username or Email already taken");
                 return;
             }
-
-            const x=JSON.parse(localStorage.getItem("Mails")) || [];
-            for(let c of x){
-                if(c==email){
-                    alert('Email is already associated with an account');
-                    return;
-                }
-            }
-
 
             const user = {
                 username:username,
@@ -57,10 +64,19 @@
             }
 
            
-            x.push(email);
-            localStorage.setItem("Mails",JSON.stringify(x));
+            // x.push(email);
+            // localStorage.setItem("Mails",JSON.stringify(x));
 
-            localStorage.setItem(`${username}`,JSON.stringify(user));
+            // localStorage.setItem(`${username}`,JSON.stringify(user));
+
+            const res=fetch("http://localhost:3000/users",{method:"POST",body:JSON.stringify(user)});
+            if(res){
+                alert("Registration Success");
+            }
+            else{
+                alert("Registration Failed");
+                return;
+            }
 
             window.location.href="login.html";
         }
