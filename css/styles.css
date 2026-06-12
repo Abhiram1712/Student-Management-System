@@ -1,4 +1,4 @@
-nav {
+nav{
     text-align:center;
     background-color: black;
     padding: 10px;
@@ -51,7 +51,6 @@ input[type="submit"]:hover{
 }
 
 p a{
-    /* width: 100px; */
     background-color: lightblue;
     border: 1px solid black;
     padding: 5px 10px;
